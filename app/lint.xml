@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <!-- Lint suggests mipmap-anydpi since minSdk is 26, but AGP 8.13 drops adaptive icons from
+         that folder ("resource mipmap/ic_launcher not found"); keep the explicit -v26 qualifier. -->
+    <issue id="ObsoleteSdkInt">
+        <ignore path="src/main/res/mipmap-anydpi-v26" />
+    </issue>
+</lint>

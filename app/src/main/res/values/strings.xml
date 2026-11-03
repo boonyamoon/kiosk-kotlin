@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Kiosk</string>
+
+    <string name="action_retry">ลองใหม่</string>
+    <string name="action_close">ปิด</string>
+    <string name="action_cancel">ยกเลิก</string>
+    <string name="action_back">ย้อนกลับ</string>
+    <string name="action_confirm">ยืนยัน</string>
+    <string name="action_skip">ข้าม</string>
+    <string name="action_delete">ลบ</string>
+
+    <string name="setup_title">ตั้งค่าเครื่อง Kiosk</string>
+    <string name="brand_meed" translatable="false">MeeD</string>
+    <string name="brand_kiosk" translatable="false">KIOSK</string>
+    <string name="setup_tagline">จัดการร้านได้ง่ายขึ้น ในทุกวันของคุณ</string>
+    <string name="setup_email_placeholder">อีเมลของคุณ</string>
+    <string name="setup_fill_credentials">กรุณากรอกอีเมลและรหัสผ่าน</string>
+    <string name="setup_show_password">แสดงรหัสผ่าน</string>
+    <string name="setup_hide_password">ซ่อนรหัสผ่าน</string>
+    <string name="setup_login_subtitle">เข้าสู่ระบบด้วยอีเมลพนักงานที่มีสิทธิ์ใช้งาน Kiosk</string>
+    <string name="setup_email">อีเมล</string>
+    <string name="setup_password">รหัสผ่าน</string>
+    <string name="setup_login">เข้าสู่ระบบ</string>
+    <string name="setup_choose_branch">เลือกสาขา</string>
+    <string name="setup_choose_branch_subtitle">กรุณาเลือกสาขาที่ต้องการใช้งาน</string>
+    <string name="setup_continue">ดำเนินการต่อ</string>
+    <string name="setup_sign_out">ออกจากระบบ</string>
+    <string name="no_business_title">ไม่พบข้อมูลร้านค้า</string>
+    <string name="no_business_description">บัญชีนี้ยังไม่ได้รับสิทธิ์เข้าใช้งานระบบ กรุณาติดต่อ\nLine: @meedpos</string>
+    <string name="no_kiosk_permission_title">บัญชีนี้ไม่มีสิทธิ์ใช้งาน Kiosk</string>
+    <string name="no_kiosk_permission_description">ให้เจ้าของร้านเปิดสิทธิ์ “เข้าใช้งาน Kiosk” ให้บัญชีนี้ในหลังร้าน</string>
+    <string name="setup_choose_terminal">เลือกเครื่อง Kiosk</string>
+    <string name="setup_terminal_auto">ใช้เครื่องที่ว่างอัตโนมัติ</string>
+    <string name="setup_terminal_paired">ผูกกับ %1$s แล้ว</string>
+    <string name="setup_device_name">ชื่อเครื่องนี้</string>
+    <string name="setup_pair">ผูกเครื่อง</string>
+    <string name="setup_no_terminal">สาขานี้ยังไม่มีเครื่อง Kiosk ว่าง กรุณาสร้างเครื่องประเภท KIOSK ในหลังร้านก่อน</string>
+
+    <string name="attract_dine_in">ทานที่ร้าน</string>
+    <string name="attract_dine_in_sub">(Eat Here)</string>
+    <string name="attract_take_away">สั่งกลับบ้าน</string>
+    <string name="attract_take_away_sub">(Take Away)</string>
+    <string name="attract_language" translatable="false">ภาษา / Language</string>
+    <string name="attract_welcome">ยินดีต้อนรับ</string>
+    <string name="screensaver_touch_to_start">แตะเพื่อเริ่มสั่งอาหาร</string>
+    <string name="attract_closed">ร้านปิดให้บริการ</string>
+    <string name="language_th" translatable="false">ไทย</string>
+    <string name="language_en" translatable="false">English</string>
+
+    <string name="member_title">สมาชิก</string>
+    <string name="member_subtitle">กรอกเบอร์โทรศัพท์เพื่อสะสมแต้ม</string>
+    <string name="member_check">ตรวจสอบ</string>
+    <string name="member_found">สวัสดีคุณ %1$s</string>
+    <string name="member_points">แต้มสะสม %1$d แต้ม</string>
+    <string name="member_not_found">ไม่พบสมาชิกจากเบอร์นี้</string>
+    <string name="member_continue">สั่งอาหารต่อ</string>
+    <string name="member_continue_guest">สั่งโดยไม่ใช้สมาชิก</string>
+    <string name="member_invalid_phone">เบอร์โทรศัพท์ต้องมี 10 หลัก ขึ้นต้นด้วย 0</string>
+
+    <string name="menu_all">ทั้งหมด</string>
+    <string name="menu_sold_out">หมดชั่วคราว</string>
+    <string name="menu_item_just_sold_out">สินค้านี้เพิ่งหมด กรุณาเลือกเมนูอื่น</string>
+    <string name="cart_item_sold_out">สินค้าหมด</string>
+    <string name="cart_remove_sold_out_first">มีสินค้าที่หมดแล้ว กรุณาลบออกก่อนชำระเงิน</string>
+    <string name="menu_cart">ตะกร้า</string>
+    <string name="menu_cart_empty">ยังไม่มีรายการ</string>
+    <string name="menu_view_cart">ดูตะกร้าสินค้า</string>
+    <plurals name="menu_in_cart">
+        <item quantity="other">ในตะกร้า %1$d ชิ้น</item>
+    </plurals>
+    <plurals name="menu_items_count">
+        <item quantity="other">%1$d รายการ</item>
+    </plurals>
+    <string name="menu_choose_options">เลือกตัวเลือก</string>
+    <string name="menu_scroll_more">เลื่อนดูเมนูเพิ่มเติม</string>
+    <string name="menu_your_cart">ตะกร้าของคุณ</string>
+    <string name="menu_cart_no_items">ยังไม่มีรายการ</string>
+    <string name="menu_view_cart_total">ดูตะกร้า · %1$s</string>
+    <string name="menu_empty">ยังไม่มีเมนูในหมวดนี้</string>
+    <string name="option_sku_title">รูปแบบ</string>
+    <string name="option_hint_exact">เลือก %1$d ตัวเลือก</string>
+    <string name="option_hint_range">เลือก %1$d–%2$d ตัวเลือก</string>
+    <string name="option_hint_at_least">เลือกอย่างน้อย %1$d ตัวเลือก</string>
+    <string name="option_error_pick">กรุณาเลือกอย่างน้อย %1$d ตัวเลือก</string>
+    <string name="option_note">หมายเหตุถึงครัว</string>
+    <string name="option_optional">ไม่บังคับ</string>
+    <string name="option_optional_up_to">ไม่บังคับ · เลือกได้สูงสุด %1$d</string>
+    <string name="option_note_placeholder">เช่น แยกน้ำแข็ง</string>
+    <string name="option_unit_price">ราคาต่อชิ้น</string>
+    <string name="quantity_value">จำนวน %1$d</string>
+    <string name="action_decrease_quantity">ลดจำนวน</string>
+    <string name="action_increase_quantity">เพิ่มจำนวน</string>
+    <string name="option_add_to_cart">เพิ่มลงตะกร้า · %1$s</string>
+
+    <string name="cart_title">ตรวจสอบออเดอร์</string>
+    <string name="cart_subtotal">ยอดรวมโดยประมาณ</string>
+    <string name="cart_note_estimate">ยอดสุทธิรวมภาษีและค่าบริการจะแสดงในขั้นตอนชำระเงิน</string>
+    <string name="cart_add_more">เลือกเมนูเพิ่ม</string>
+    <string name="cart_go_to_payment">ไปชำระเงิน</string>
+    <string name="cart_line_options">ตัวเลือก: %1$s</string>
+    <string name="cart_line_note">หมายเหตุ: %1$s</string>
+    <string name="cart_remove_title">ลบรายการนี้?</string>
+    <string name="cart_remove_message">%1$s × %2$d จะถูกนำออกจากออเดอร์</string>
+    <string name="cart_member">สมาชิก: %1$s</string>
+
+    <string name="payment_title">เลือกวิธีชำระเงิน</string>
+    <string name="payment_cash">เงินสด</string>
+    <string name="payment_cash_desc">ชำระที่เคาน์เตอร์</string>
+    <string name="payment_promptpay">QR พร้อมเพย์</string>
+    <string name="payment_promptpay_desc">สแกนจ่ายผ่านแอปธนาคาร</string>
+    <string name="payment_food_total">ค่าอาหาร</string>
+    <string name="payment_service_charge">ค่าบริการ %1$s%%</string>
+    <string name="payment_vat">VAT %1$s%%</string>
+    <string name="payment_total_due">ยอดที่ต้องชำระ</string>
+    <string name="payment_vat_included">รวม VAT %1$s%% แล้ว %2$s</string>
+    <string name="payment_placing">กำลังส่งออเดอร์…</string>
+
+    <string name="promptpay_title">สแกนเพื่อชำระเงิน</string>
+    <string name="promptpay_amount">ยอดชำระ %1$s</string>
+    <string name="promptpay_expires_in">QR หมดอายุใน %1$s</string>
+    <string name="promptpay_waiting">กำลังรอการชำระเงิน…</string>
+    <string name="promptpay_expired">QR หมดอายุแล้ว</string>
+    <string name="promptpay_new_qr">สร้าง QR ใหม่</string>
+    <string name="promptpay_pay_at_counter">จ่ายเงินสดที่เคาน์เตอร์แทน</string>
+    <string name="promptpay_cancel_order">ยกเลิกออเดอร์</string>
+
+    <string name="success_title_paid">ชำระเงินเรียบร้อย</string>
+    <string name="success_title_unpaid">ส่งออเดอร์เรียบร้อย</string>
+    <string name="success_queue">หมายเลขคิวของคุณ</string>
+    <string name="success_pay_at_counter">กรุณาชำระเงิน %1$s ที่เคาน์เตอร์</string>
+    <string name="success_printing">กำลังพิมพ์ใบเสร็จ…</string>
+    <string name="success_print_failed">พิมพ์ใบเสร็จไม่สำเร็จ กรุณาแจ้งพนักงาน</string>
+    <string name="success_print_again">พิมพ์อีกครั้ง</string>
+    <string name="success_no_printer">กรุณาจดหมายเลขคิวไว้</string>
+    <string name="success_back_in">กลับหน้าแรกใน %1$d วินาที</string>
+    <string name="success_done">เสร็จสิ้น</string>
+
+    <string name="idle_title">ยังสั่งอาหารอยู่ไหม?</string>
+    <string name="idle_message">ระบบจะเริ่มใหม่ใน %1$d วินาที</string>
+    <string name="idle_continue">สั่งต่อ</string>
+    <string name="idle_restart">เริ่มใหม่</string>
+    <string name="idle_admin_title">ยังใช้เมนูผู้ดูแลอยู่ไหม?</string>
+    <string name="idle_admin_continue">ใช้ต่อ</string>
+
+    <string name="admin_title">เมนูผู้ดูแล</string>
+    <string name="admin_pin_subtitle">กรอก PIN พนักงาน (PIN เดียวกับเครื่อง POS)</string>
+    <string name="admin_unlock">เข้าเมนูผู้ดูแล</string>
+    <string name="admin_unlocked_by">เปิดโดย %1$s</string>
+    <string name="admin_pin_invalid">PIN ไม่ถูกต้อง หรือพนักงานคนนี้ไม่มีสิทธิ์ใช้ Kiosk สาขานี้</string>
+    <string name="admin_pin_weak">PIN 0000 ใช้เปิดเมนูผู้ดูแลไม่ได้ กรุณาตั้ง PIN ใหม่ในระบบหลังร้าน</string>
+    <string name="admin_pin_locked">กรอก PIN ผิดหลายครั้ง กรุณารอ 15 นาทีแล้วลองใหม่</string>
+    <plurals name="admin_pin_entered">
+        <item quantity="other">กรอก PIN แล้ว %1$d หลัก</item>
+    </plurals>
+    <string name="admin_test_print">ทดสอบพิมพ์</string>
+    <string name="admin_refresh">รีเฟรชเมนูและการตั้งค่า</string>
+    <string name="admin_unpair">ยกเลิกการผูกเครื่อง</string>
+    <string name="admin_unpair_confirm">ยกเลิกการผูกเครื่องนี้ใช่ไหม? ต้องตั้งค่าใหม่ทั้งหมด</string>
+    <string name="admin_terminal_info">เครื่อง %1$s · สาขา %2$s</string>
+    <string name="admin_printer_info">เครื่องพิมพ์: %1$s (%2$s)</string>
+    <string name="admin_printer_none">ยังไม่ได้กำหนดเครื่องพิมพ์ใบเสร็จให้เครื่องนี้</string>
+    <string name="admin_test_print_ok">พิมพ์ทดสอบสำเร็จ</string>
+    <string name="admin_refreshed">อัปเดตแล้ว</string>
+    <string name="admin_exit_lock">ออกจากโหมดล็อกหน้าจอ</string>
+    <string name="admin_lock_status_pinned">ปักหมุดแอปอยู่</string>
+    <string name="admin_lock_detail_pinned">ลูกค้าออกจากแอปไม่ได้ ถ้ามีคนเลิกปักหมุด เครื่องจะขอรหัสล็อกหน้าจอ</string>
+    <string name="admin_lock_detail_pinned_unknown">ลูกค้าออกจากแอปไม่ได้ แต่เครื่องนี้ไม่ให้แอปตรวจว่าเปิด “ขอ PIN ก่อนเลิกปักหมุด” แล้วหรือยัง กรุณาตรวจในตั้งค่า</string>
+    <string name="admin_lock_status_pinned_unsafe">ปักหมุดอยู่ แต่ยังเลิกปักหมุดได้</string>
+    <string name="admin_lock_detail_no_screen_lock">เครื่องยังไม่มีรหัสล็อกหน้าจอ ลูกค้าที่รู้วิธีเลิกปักหมุดจะออกจากแอปได้</string>
+    <string name="admin_lock_detail_no_exit_pin">ยังไม่ได้เปิด “ขอ PIN ก่อนเลิกปักหมุด” ลูกค้าที่รู้วิธีเลิกปักหมุดจะออกจากแอปได้</string>
+    <string name="admin_lock_status_not_pinned">ไม่ได้ล็อก</string>
+    <string name="admin_lock_detail_not_pinned">ลูกค้าปัดขอบจอเพื่อออกจากแอปได้ กด “ปักหมุดแอป” แล้วยืนยันในกล่องที่ Android ถาม</string>
+    <string name="admin_pin_now">ปักหมุดแอป</string>
+    <string name="admin_lock_setup">วิธีตั้งค่าการล็อกหน้าจอ</string>
+    <string name="admin_lock_setup_incomplete">วิธีตั้งค่าการล็อกหน้าจอ (ยังตั้งไม่ครบ)</string>
+    <string name="lock_warning">หน้าจอยังไม่ล็อก · แตะเพื่อปักหมุด</string>
+    <string name="lock_setup_title">ตั้งค่าการล็อกหน้าจอ</string>
+    <string name="lock_setup_intro">ทำครั้งเดียวต่อเครื่อง เพื่อให้ลูกค้าออกจากแอป Kiosk ไม่ได้ ไม่ต้องใช้คอมพิวเตอร์</string>
+    <string name="lock_setup_device_owner">เครื่องนี้ตั้งเป็น device owner แล้ว ล็อกได้เต็มรูปแบบโดยไม่ต้องปักหมุด ขั้นตอนด้านล่างไม่จำเป็น</string>
+    <string name="lock_setup_step_screen_lock">ตั้งรหัสล็อกหน้าจอของเครื่อง</string>
+    <string name="lock_setup_step_screen_lock_detail">PIN, รูปแบบ หรือรหัสผ่าน พนักงานใช้รหัสนี้ตอนเลิกปักหมุด</string>
+    <string name="lock_setup_step_unpin_pin">เปิด “ขอ PIN ก่อนเลิกปักหมุด”</string>
+    <string name="lock_setup_step_unpin_pin_detail">ตั้งค่า &gt; ความปลอดภัย &gt; ปักหมุดแอป แล้วเปิดทั้ง “ปักหมุดแอป” และ “ขอ PIN ก่อนเลิกปักหมุด” (ชื่อเมนูต่างกันตามยี่ห้อ ค้นหาคำว่า “ปักหมุด” ในตั้งค่าได้)</string>
+    <string name="lock_setup_step_home">ตั้ง Kiosk เป็นแอปหน้าหลัก</string>
+    <string name="lock_setup_step_home_detail">เลือก Kiosk เป็นแอปหน้าแรก (Home) กดปุ่ม Home หรือปลดล็อกเครื่องแล้วจะกลับมาที่ Kiosk เสมอ</string>
+    <string name="lock_setup_step_pin">ปักหมุดแอป</string>
+    <string name="lock_setup_step_pin_detail">กดปุ่มแล้วยืนยันในกล่องที่ Android ถาม หลังจากนี้แอปจะขอปักหมุดเองเมื่อเปิดเครื่องและเมื่อกลับมาหน้าแรก</string>
+    <string name="lock_setup_open_settings">เปิดการตั้งค่า</string>
+    <string name="lock_setup_done">เสร็จแล้ว</string>
+    <string name="lock_setup_todo">ยังไม่ได้ทำ</string>
+    <string name="lock_setup_unknown">ตรวจไม่ได้</string>
+    <string name="lock_setup_unknown_detail">เครื่องนี้ไม่ให้แอปตรวจขั้นตอนนี้ กรุณาตรวจในตั้งค่าด้วยตัวเอง</string>
+    <string name="lock_setup_footer">การเปิดการตั้งค่าจะเลิกปักหมุดชั่วคราว (ถ้าเปิด “ขอ PIN ก่อนเลิกปักหมุด” ไว้ ต้องใส่รหัสเครื่อง) เมื่อกลับไปหน้าแรก แอปจะขอปักหมุดใหม่</string>
+    <string name="admin_lock_title">โหมดล็อกหน้าจอ</string>
+    <string name="admin_lock_status_locked">ล็อกอยู่ (device owner)</string>
+    <string name="admin_lock_detail_locked">ลูกค้าออกจากแอปไม่ได้ (ปุ่ม Home, Recents และแถบแจ้งเตือนถูกปิด)</string>
+    <string name="admin_lock_status_suspended">ปลดล็อกชั่วคราว</string>
+    <string name="admin_lock_detail_suspended">ออกไปใช้แอปอื่นได้ จะล็อกกลับเองเมื่อปิดเมนูนี้ หรือเมื่อไม่มีการใช้งานจนกลับหน้าแรก</string>
+    <string name="admin_relock">กลับเข้าโหมดล็อก</string>
+    <string name="admin_release_device_owner">ปลด device owner</string>
+    <string name="admin_release_title">ปลด device owner?</string>
+    <string name="admin_release_message">เครื่องจะไม่ล็อกหน้าจออีกและถอนแอปได้ ถ้าจะกลับมาล็อกต้องตั้งค่าใหม่ด้วยคอมพิวเตอร์</string>
+    <string name="admin_release_confirm">ปลด device owner</string>
+    <string name="admin_device_owner_released">ปลด device owner แล้ว ตอนนี้ถอนแอปได้</string>
+    <string name="admin_device_owner_release_failed">Android ไม่อนุญาตให้ปลด device owner บนเครื่องนี้</string>
+
+    <string name="oos_title">งดให้บริการชั่วคราว</string>
+    <string name="oos_message">กรุณาติดต่อพนักงาน</string>
+    <string name="oos_not_enabled">สำหรับพนักงาน: แพ็กเกจของร้านยังไม่เปิดใช้ Kiosk เมื่อเปิดใช้แล้ว เครื่องจะกลับมาใช้งานได้เอง</string>
+
+    <string name="error_network">เชื่อมต่อเซิร์ฟเวอร์ไม่ได้ กรุณาลองใหม่</string>
+    <string name="error_generic">เกิดข้อผิดพลาด กรุณาลองใหม่</string>
+    <string name="error_out_of_stock">สินค้าบางรายการหมด กรุณาแก้ไขตะกร้า</string>
+    <string name="error_outside_hours">ร้านปิดให้บริการในขณะนี้</string>
+    <string name="error_login_failed">อีเมลหรือรหัสผ่านไม่ถูกต้อง</string>
+    <string name="error_not_allowed">บัญชีนี้ไม่มีสิทธิ์ตั้งค่า Kiosk สำหรับสาขานี้</string>
+    <string name="error_already_paid">ออเดอร์นี้ชำระเงินแล้ว</string>
+    <string name="error_order_in_kitchen">ออเดอร์นี้ส่งเข้าครัวแล้ว กรุณาแจ้งพนักงาน</string>
+    <string name="error_promptpay_unavailable">ร้านยังไม่เปิดใช้ QR พร้อมเพย์</string>
+    <string name="error_payment_method_disabled">ร้านปิดวิธีชำระเงินนี้แล้ว กรุณาเลือกวิธีอื่น</string>
+    <string name="error_kiosk_not_enabled">แพ็กเกจของร้านยังไม่รวม Kiosk กรุณาติดต่อผู้ดูแลระบบ</string>
+    <string name="error_order_type_unavailable">ประเภทการสั่งนี้ไม่เปิดให้บริการ</string>
+
+    <string name="receipt_title_paid">ใบเสร็จรับเงิน</string>
+    <string name="receipt_title_unpaid">ใบรับออเดอร์</string>
+    <string name="receipt_unpaid_banner">ยังไม่ชำระเงิน</string>
+    <string name="receipt_pay_at_counter">กรุณาชำระเงินที่เคาน์เตอร์</string>
+    <string name="receipt_queue">หมายเลขคิว</string>
+    <string name="receipt_order_no">เลขที่ออเดอร์: %1$s</string>
+    <string name="receipt_subtotal">ยอดรวมสินค้า</string>
+    <string name="receipt_discount">ส่วนลด</string>
+    <string name="receipt_service_charge">ค่าบริการ %1$s%%</string>
+    <string name="receipt_total">ยอดรวมทั้งสิ้น</string>
+    <string name="receipt_member">สมาชิก : %1$s</string>
+    <string name="receipt_tax_id">เลขประจำตัวผู้เสียภาษี %1$s</string>
+    <string name="receipt_branch_no">No. Branch: %1$s</string>
+    <string name="receipt_phone">Tel: %1$s</string>
+    <string name="receipt_prices_include_vat">ราคาสินค้ารวมภาษีมูลค่าเพิ่มแล้ว</string>
+    <string name="receipt_prices_exclude_vat">ราคาสินค้ายังไม่รวมภาษีมูลค่าเพิ่ม</string>
+    <string name="receipt_number">เลขที่ใบเสร็จ: %1$s</string>
+    <string name="receipt_terminal">เครื่อง : %1$s</string>
+    <string name="receipt_date">วันที่ : %1$s</string>
+    <string name="receipt_time">เวลา : %1$s</string>
+    <string name="receipt_item_note">หมายเหตุ: %1$s</string>
+    <string name="receipt_item_count">รายการ : %1$s</string>
+    <string name="receipt_before_vat">ยอดสุทธิก่อนภาษี</string>
+    <string name="receipt_vat_amount">ภาษีมูลค่าเพิ่ม %1$s%%</string>
+    <string name="receipt_rounding">ปัดเศษสตางค์</string>
+    <string name="receipt_paid_by_promptpay">พร้อมเพย์</string>
+    <string name="receipt_paid_by_cash">เงินสด</string>
+    <string name="receipt_change">เงินทอน</string>
+    <string name="receipt_test_title">ทดสอบเครื่องพิมพ์</string>
+</resources>
