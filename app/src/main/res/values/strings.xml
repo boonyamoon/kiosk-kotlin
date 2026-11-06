@@ -111,9 +111,9 @@
     <string name="payment_promptpay_desc">สแกนจ่ายผ่านแอปธนาคาร</string>
     <string name="payment_food_total">ค่าอาหาร</string>
     <string name="payment_service_charge">ค่าบริการ %1$s%%</string>
+    <string name="payment_before_vat">ราคาก่อนภาษี</string>
     <string name="payment_vat">VAT %1$s%%</string>
     <string name="payment_total_due">ยอดที่ต้องชำระ</string>
-    <string name="payment_vat_included">รวม VAT %1$s%% แล้ว %2$s</string>
     <string name="payment_placing">กำลังส่งออเดอร์…</string>
 
     <string name="promptpay_title">สแกนเพื่อชำระเงิน</string>

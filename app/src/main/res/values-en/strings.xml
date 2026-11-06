@@ -106,9 +106,9 @@
     <string name="payment_promptpay_desc">Scan with your banking app</string>
     <string name="payment_food_total">Food</string>
     <string name="payment_service_charge">Service charge %1$s%%</string>
+    <string name="payment_before_vat">Before VAT</string>
     <string name="payment_vat">VAT %1$s%%</string>
     <string name="payment_total_due">Amount due</string>
-    <string name="payment_vat_included">Incl. VAT %1$s%% %2$s</string>
     <string name="payment_placing">Sending your order…</string>
 
     <string name="promptpay_title">Scan to pay</string>

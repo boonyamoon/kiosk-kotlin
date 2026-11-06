@@ -13,7 +13,13 @@ data class OrderTotals(
     val total: Double,
 ) {
     /** Anything on top of the food: a service charge, or VAT added to prices that exclude it. */
-    val hasExtras: Boolean get() = serviceCharge > 0 || (!taxIncluded && tax > 0)
+    val hasExtras: Boolean get() = serviceCharge > 0 || vatAddedOnTop
+
+    /** Prices exclude VAT, so VAT is charged on top and shown as its own line. */
+    val vatAddedOnTop: Boolean get() = !taxIncluded && tax > 0
+
+    /** What VAT is charged on: food + service charge (the server's `taxable`). */
+    val beforeTax: Double get() = roundMoney(subtotal + serviceCharge)
 }
 
 /**

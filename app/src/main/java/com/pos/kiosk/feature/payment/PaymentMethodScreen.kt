@@ -120,24 +120,20 @@ private data class Method(val method: PaymentMethod, val icon: ImageVector, val 
 private fun TotalsCard(totals: OrderTotals) {
     Surface(shape = RoundedCornerShape(16.dp), color = Color.White, shadowElevation = 1.dp, modifier = Modifier.fillMaxWidth()) {
         Column(Modifier.padding(horizontal = 24.dp, vertical = 20.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            // Prices include VAT: no VAT line at all (it's already in every price). Prices exclude VAT: the amount
+            // before VAT, then VAT on top. Food has its own line only when a service charge makes up part of it.
             if (totals.hasExtras) {
-                AmountRow(stringResource(R.string.payment_food_total), totals.subtotal)
+                if (!totals.vatAddedOnTop || totals.serviceCharge > 0) AmountRow(stringResource(R.string.payment_food_total), totals.subtotal)
                 if (totals.serviceCharge > 0) AmountRow(stringResource(R.string.payment_service_charge, formatRate(totals.serviceChargeRate)), totals.serviceCharge)
-                if (!totals.taxIncluded && totals.tax > 0) AmountRow(stringResource(R.string.payment_vat, formatRate(totals.taxRate)), totals.tax)
+                if (totals.vatAddedOnTop) {
+                    AmountRow(stringResource(R.string.payment_before_vat), totals.beforeTax)
+                    AmountRow(stringResource(R.string.payment_vat, formatRate(totals.taxRate)), totals.tax)
+                }
                 HorizontalDivider(color = KioskHairline, modifier = Modifier.padding(vertical = 4.dp))
             }
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(stringResource(R.string.payment_total_due), style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold, color = KioskInk, modifier = Modifier.weight(1f))
                 Text(formatBahtExact(totals.total), style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
-            }
-            if (totals.taxIncluded && totals.tax > 0) {
-                Text(
-                    stringResource(R.string.payment_vat_included, formatRate(totals.taxRate), formatBahtExact(totals.tax)),
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = KioskInkMuted,
-                    textAlign = TextAlign.End,
-                    modifier = Modifier.fillMaxWidth(),
-                )
             }
         }
     }
