@@ -14,7 +14,7 @@ import javax.inject.Singleton
 
 data class PrinterTarget(val host: String, val port: Int)
 
-/** Swap the implementation (Sunmi built-in, USB, Bluetooth) without touching any feature code. */
+/** A printer reached over the network. The device's own printer is [com.pos.kiosk.core.printer.builtin.BuiltInPrinter]. */
 interface ReceiptPrinter {
     suspend fun print(target: PrinterTarget, image: MonochromeImage, copies: Int = 1): AppResult<Unit>
 }

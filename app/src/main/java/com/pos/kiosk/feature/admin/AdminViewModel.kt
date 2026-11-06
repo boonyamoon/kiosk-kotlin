@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.pos.kiosk.R
 import com.pos.kiosk.core.common.AppError
 import com.pos.kiosk.core.common.AppResult
+import com.pos.kiosk.core.printer.PrinterInfo
 import com.pos.kiosk.core.session.LockMode
 import com.pos.kiosk.core.session.LockTaskController
 import com.pos.kiosk.core.session.LockTaskState
@@ -38,10 +39,15 @@ data class AdminUiState(
     val busy: Boolean = false,
     val error: AppError? = null,
     val messageRes: Int? = null,
+    /** The printer receipts go to: one assigned to this kiosk, or the device's own. Null when there is none. */
+    val printer: PrinterInfo? = config?.receiptPrinter?.let { PrinterInfo.Lan(it) },
     /** Whether the app is pinned to the screen, shown with the buttons that apply to it. */
     val lock: LockTaskState = LockTaskState(),
 ) {
     val canSubmitPin: Boolean get() = pin.length >= ADMIN_PIN_MIN_LENGTH && !busy
+
+    /** Android opens its USB prompt as a task of its own, which a pinned or locked app refuses: nothing would appear. */
+    val canAskForUsbPermission: Boolean get() = lock.mode == LockMode.Suspended || lock.mode == LockMode.NotPinned
 }
 
 sealed interface AdminEvent {
@@ -51,6 +57,11 @@ sealed interface AdminEvent {
     data object TestPrint : AdminEvent
     data object Refresh : AdminEvent
     data object Unpair : AdminEvent
+    data object AllowUsbPrinter : AdminEvent
+    data class UsbPaperChosen(val widthDots: Int) : AdminEvent
+
+    /** Back from Android's USB prompt, or from anything else that may have changed the printer. */
+    data object Resumed : AdminEvent
 }
 
 sealed interface AdminEffect {
@@ -77,6 +88,7 @@ class AdminViewModel @Inject constructor(
     val effects = _effects.receiveAsFlow()
 
     init {
+        refreshPrinter()
         lockTask.refresh() // the device's screen lock, Home app and pinning settings may have changed since
         viewModelScope.launch { lockTask.state.collect { lock -> _state.update { it.copy(lock = lock) } } }
     }
@@ -94,6 +106,7 @@ class AdminViewModel @Inject constructor(
                     is AppResult.Success -> _state.update { it.copy(messageRes = R.string.admin_test_print_ok) }
                     is AppResult.Failure -> _state.update { it.copy(error = result.error) }
                 }
+                refreshPrinter()
             }
             AdminEvent.Refresh -> busy {
                 when (val result = configRepository.refresh()) {
@@ -103,6 +116,7 @@ class AdminViewModel @Inject constructor(
                             launch { menuRepository.products(forceRefresh = true) }
                         }
                         _state.update { it.copy(config = result.data, messageRes = R.string.admin_refreshed) }
+                        refreshPrinter()
                     }
                     is AppResult.Failure -> _state.update { it.copy(error = result.error) }
                 }
@@ -111,6 +125,24 @@ class AdminViewModel @Inject constructor(
                 auth.forgetPairing()
                 _effects.send(AdminEffect.Unpaired)
             }
+            AdminEvent.AllowUsbPrinter -> if (_state.value.authenticated && _state.value.canAskForUsbPermission) {
+                _state.update { it.copy(error = null, messageRes = null) }
+                printReceipt.requestUsbPermission()
+            }
+            is AdminEvent.UsbPaperChosen -> if (_state.value.authenticated) {
+                busy {
+                    printReceipt.setUsbPaperWidth(event.widthDots)
+                    refreshPrinter()
+                }
+            }
+            AdminEvent.Resumed -> refreshPrinter()
+        }
+    }
+
+    private fun refreshPrinter() {
+        viewModelScope.launch {
+            val printer = printReceipt.currentPrinter()
+            _state.update { it.copy(printer = printer) }
         }
     }
 

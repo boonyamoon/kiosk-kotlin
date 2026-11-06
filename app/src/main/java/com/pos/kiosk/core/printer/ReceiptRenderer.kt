@@ -155,14 +155,19 @@ class ReceiptRenderer @Inject constructor(@ApplicationContext context: Context) 
         return doc.toMonochrome()
     }
 
-    fun renderTestPage(config: KioskConfig, widthDots: Int): MonochromeImage {
-        val doc = Doc(widthDots)
+    fun renderTestPage(config: KioskConfig, printer: PrinterInfo): MonochromeImage {
+        val doc = Doc(printer.paperWidthDots)
         val s = doc.scale
         doc.text(thai.getString(R.string.receipt_test_title), 30 * s, bold = true, align = Layout.Alignment.ALIGN_CENTER)
         doc.divider()
         doc.row(config.terminalName, config.terminalCode, 22 * s)
         doc.text(config.branch.businessName + " · " + config.branch.branchName, 22 * s)
-        config.receiptPrinter?.let { doc.text("${it.name} ${it.host}:${it.port} (${it.paperSize})", 20 * s) }
+        val printerLine = when (printer) {
+            is PrinterInfo.Lan -> printer.config.run { "$name $host:$port ($paperSize)" }
+            is PrinterInfo.BuiltIn -> thai.getString(R.string.receipt_builtin_printer, printer.brand, printer.paperMm)
+            is PrinterInfo.Usb -> thai.getString(R.string.receipt_usb_printer, printer.name, printer.paperMm)
+        }
+        doc.text(printerLine, 20 * s)
         doc.text(formatDate(System.currentTimeMillis()), 20 * s)
         doc.banner(thai.getString(R.string.receipt_unpaid_banner), 34 * s)
         doc.text("ภาษาไทย ก่ำ ปั้น ฟ้าผ่า ญี่ปุ่น ฎีกา ฤๅษี", 24 * s)

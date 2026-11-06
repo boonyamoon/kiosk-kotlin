@@ -61,6 +61,7 @@ fun AppError.messageRes(): Int = when (this) {
     AppError.OrderInKitchen -> R.string.error_order_in_kitchen
     AppError.NoKioskTerminal -> R.string.setup_no_terminal
     AppError.PrinterUnavailable -> R.string.success_print_failed
+    AppError.PrinterOutOfPaper -> R.string.success_print_no_paper
     AppError.InvalidPin -> R.string.admin_pin_invalid
     AppError.WeakPin -> R.string.admin_pin_weak
     AppError.TooManyPinAttempts -> R.string.admin_pin_locked

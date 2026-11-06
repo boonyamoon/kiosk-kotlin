@@ -5,6 +5,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <!-- USB printers are optional: required here would hide the app on Google Play from devices without USB host. -->
+    <uses-feature android:name="android.hardware.usb.host" android:required="false" />
+
     <!-- Lets the lock setup guide see the other Home apps, so it can tell whether the kiosk is the default one
          (without this, package visibility hides them and the kiosk always looks like the only Home app). -->
     <queries>
@@ -12,6 +15,10 @@
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.HOME" />
         </intent>
+        <!-- Print services of all-in-one POS devices. The Sunmi SDK declares only its main service
+             (woyou.aidlservice.jiuiv5) itself; this one drives the K2 kiosk's printer. -->
+        <package android:name="com.sunmi.extprinterservice" />
+        <package android:name="com.imin.printerservice" />
     </queries>
 
     <application
@@ -42,6 +49,23 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <!-- With this filter Android offers "always" in its USB prompt, and then grants the printer on every attach
+             without asking: the prompt itself can't open over a pinned app. It stays off until the app knows there is
+             no printer inside the device (BuiltInPrinterModule), because a Sunmi or iMin printer can be a USB printer
+             too, and the filter would put a prompt about it in front of customers. -->
+        <activity-alias
+            android:name=".UsbPrinterAttached"
+            android:enabled="false"
+            android:exported="true"
+            android:targetActivity=".MainActivity">
+            <intent-filter>
+                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
+            </intent-filter>
+            <meta-data
+                android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
+                android:resource="@xml/usb_printer_filter" />
+        </activity-alias>
 
         <!-- Enables Lock Task Mode once provisioned with:
              adb shell dpm set-device-owner com.pos.kiosk/.KioskDeviceAdminReceiver -->

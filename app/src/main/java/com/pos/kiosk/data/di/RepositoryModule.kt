@@ -2,6 +2,8 @@ package com.pos.kiosk.data.di
 
 import com.pos.kiosk.core.printer.EscPosLanPrinter
 import com.pos.kiosk.core.printer.ReceiptPrinter
+import com.pos.kiosk.core.printer.usb.DataStoreUsbPaperSetting
+import com.pos.kiosk.core.printer.usb.UsbPaperSetting
 import com.pos.kiosk.data.repository.AuthRepositoryImpl
 import com.pos.kiosk.data.repository.ConfigRepositoryImpl
 import com.pos.kiosk.data.repository.InMemoryOrderSessionRepository
@@ -32,4 +34,5 @@ abstract class RepositoryModule {
     @Binds abstract fun orderRepository(impl: OrderRepositoryImpl): OrderRepository
     @Binds abstract fun paymentRepository(impl: PaymentRepositoryImpl): PaymentRepository
     @Binds abstract fun receiptPrinter(impl: EscPosLanPrinter): ReceiptPrinter
+    @Binds abstract fun usbPaperSetting(impl: DataStoreUsbPaperSetting): UsbPaperSetting
 }

@@ -41,8 +41,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.pos.kiosk.R
+import com.pos.kiosk.core.printer.PrinterInfo
+import com.pos.kiosk.core.printer.builtin.PAPER_58MM_DOTS
+import com.pos.kiosk.core.printer.builtin.PAPER_80MM_DOTS
+import com.pos.kiosk.core.printer.builtin.PrinterStatus
 import com.pos.kiosk.core.session.LockMode
 import com.pos.kiosk.core.session.LockTaskState
 import com.pos.kiosk.core.ui.BackCircleButton
@@ -59,6 +64,7 @@ import com.pos.kiosk.core.ui.KioskMutedSurface
 import com.pos.kiosk.core.ui.KioskOutlinedButton
 import com.pos.kiosk.core.ui.ObserveAsEvents
 import com.pos.kiosk.core.ui.PhoneNumberPad
+import com.pos.kiosk.core.ui.PillChip
 import com.pos.kiosk.core.ui.icons.KioskIcons
 import com.pos.kiosk.core.ui.messageRes
 import com.pos.kiosk.core.ui.theme.KioskTheme
@@ -69,6 +75,10 @@ fun AdminRoute(onClose: () -> Unit, onUnpaired: () -> Unit, onOpenLockSetup: () 
     val state by viewModel.state.collectAsStateWithLifecycle()
     val activity = LocalActivity.current
     ObserveAsEvents(viewModel.effects) { if (it == AdminEffect.Unpaired) onUnpaired() }
+    LifecycleResumeEffect(viewModel) {
+        viewModel.onEvent(AdminEvent.Resumed)
+        onPauseOrDispose { }
+    }
     AdminScreen(
         state = state,
         onEvent = viewModel::onEvent,
@@ -108,11 +118,10 @@ fun AdminScreen(state: AdminUiState, onEvent: (AdminEvent) -> Unit, lockActions:
                     state.staffName?.let { Text(stringResource(R.string.admin_unlocked_by, it), style = MaterialTheme.typography.bodyLarge, color = MeedColors.Text) }
                     state.config?.let { config ->
                         Text(stringResource(R.string.admin_terminal_info, config.terminalName, config.branch.branchName), style = MaterialTheme.typography.titleMedium)
-                        Text(
-                            config.receiptPrinter?.let { stringResource(R.string.admin_printer_info, it.name, "${it.host}:${it.port}") }
-                                ?: stringResource(R.string.admin_printer_none),
-                            style = MaterialTheme.typography.bodyLarge,
-                        )
+                        Text(printerLine(state.printer), style = MaterialTheme.typography.bodyLarge)
+                    }
+                    (state.printer as? PrinterInfo.Usb)?.let { printer ->
+                        UsbPrinterSection(printer, state.canAskForUsbPermission, onEvent)
                     }
                     KioskButton(stringResource(R.string.admin_test_print), { onEvent(AdminEvent.TestPrint) }, Modifier.fillMaxWidth(), loading = state.busy)
                     KioskOutlinedButton(stringResource(R.string.admin_refresh), { onEvent(AdminEvent.Refresh) }, Modifier.fillMaxWidth(), enabled = !state.busy)
@@ -204,6 +213,59 @@ private fun PinDots(length: Int, modifier: Modifier = Modifier) {
     }
 }
 
+@Composable
+private fun printerLine(printer: PrinterInfo?): String = when (printer) {
+    is PrinterInfo.Lan -> stringResource(R.string.admin_printer_info, printer.config.name, "${printer.config.host}:${printer.config.port}")
+    is PrinterInfo.BuiltIn -> stringResource(R.string.admin_printer_builtin, printer.brand, printer.paperMm, stringResource(printer.status.labelRes()))
+    is PrinterInfo.Usb -> stringResource(
+        R.string.admin_printer_usb,
+        printer.name,
+        printer.paperMm,
+        stringResource(if (printer.permitted) printer.status.labelRes() else R.string.admin_printer_not_allowed),
+    )
+    null -> stringResource(R.string.admin_printer_none)
+}
+
+@StringRes
+private fun PrinterStatus.labelRes(): Int = when (this) {
+    PrinterStatus.Ready -> R.string.admin_printer_ready
+    PrinterStatus.OutOfPaper -> R.string.admin_printer_no_paper
+    PrinterStatus.CoverOpen -> R.string.admin_printer_cover_open
+    PrinterStatus.Overheated -> R.string.admin_printer_overheated
+    PrinterStatus.Offline -> R.string.admin_printer_offline
+}
+
+/** What only a USB printer needs from staff: Android's permission, once, and the paper, which USB can't report. */
+@Composable
+private fun UsbPrinterSection(printer: PrinterInfo.Usb, canAskForPermission: Boolean, onEvent: (AdminEvent) -> Unit, modifier: Modifier = Modifier) {
+    Column(
+        modifier.fillMaxWidth().clip(KioskCardShape).background(KioskMutedSurface).padding(20.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+    ) {
+        Text(stringResource(R.string.admin_usb_title), style = MaterialTheme.typography.titleMedium, color = KioskInk)
+        if (!printer.permitted) {
+            Text(
+                stringResource(if (canAskForPermission) R.string.admin_usb_allow_hint else R.string.admin_usb_exit_lock_first),
+                style = MaterialTheme.typography.bodyLarge,
+                color = KioskInkMuted,
+            )
+            KioskButton(stringResource(R.string.admin_usb_allow), { onEvent(AdminEvent.AllowUsbPrinter) }, Modifier.fillMaxWidth(), enabled = canAskForPermission)
+        }
+        Text(stringResource(R.string.admin_usb_paper), style = MaterialTheme.typography.bodyLarge, color = KioskInkMuted)
+        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            UsbPaperChip(PAPER_58MM_DOTS, 58, printer, onEvent)
+            UsbPaperChip(PAPER_80MM_DOTS, 80, printer, onEvent)
+        }
+    }
+}
+
+@Composable
+private fun UsbPaperChip(widthDots: Int, mm: Int, printer: PrinterInfo.Usb, onEvent: (AdminEvent) -> Unit) {
+    PillChip(stringResource(R.string.admin_usb_paper_mm, mm), selected = printer.paperWidthDots == widthDots) {
+        onEvent(AdminEvent.UsbPaperChosen(widthDots))
+    }
+}
+
 private val LockedGreen = Color(0xFF16A34A)
 private val WarningAmber = Color(0xFFD97706)
 private val OpenRed = Color(0xFFDC2626)
@@ -284,6 +346,19 @@ private fun LockTaskSectionPreview() {
             LockTaskSection(LockTaskState(LockMode.Pinned, deviceSecure = false), {}, {}, {}, {})
             LockTaskSection(LockTaskState(LockMode.NotPinned), {}, {}, {}, {})
             LockTaskSection(LockTaskState(LockMode.Suspended, deviceOwner = true), {}, {}, {}, {})
+        }
+    }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFFFFFFFF, widthDp = 560)
+@Composable
+private fun UsbPrinterSectionPreview() {
+    val notAllowed = PrinterInfo.Usb("XP-80C", PAPER_80MM_DOTS, PrinterStatus.Offline, permitted = false)
+    KioskTheme(brandColor = Color(0xFFFF5E00)) {
+        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+            UsbPrinterSection(notAllowed, canAskForPermission = true, onEvent = {})
+            UsbPrinterSection(notAllowed, canAskForPermission = false, onEvent = {})
+            UsbPrinterSection(notAllowed.copy(paperWidthDots = PAPER_58MM_DOTS, status = PrinterStatus.Ready, permitted = true), canAskForPermission = false, onEvent = {})
         }
     }
 }
