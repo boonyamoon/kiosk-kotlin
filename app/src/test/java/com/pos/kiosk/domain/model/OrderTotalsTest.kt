@@ -38,6 +38,8 @@ class OrderTotalsTest {
         assertEquals(10.0, totals.serviceCharge, 0.0)
         assertEquals(11.2, totals.tax, 0.0) // 7 % of 160
         assertEquals(171.2, totals.total, 0.0)
+        assertEquals(160.0, totals.beforeTax, 0.0) // the payment screen's "before VAT" line
+        assertTrue(totals.vatAddedOnTop)
     }
 
     @Test
@@ -47,6 +49,7 @@ class OrderTotalsTest {
         assertEquals(20.0, totals.serviceCharge, 0.0)
         assertEquals(14.39, totals.tax, 0.0) // 220 − 220 / 1.07
         assertEquals(220.0, totals.total, 0.0)
+        assertFalse(totals.vatAddedOnTop) // VAT already in the prices: no VAT line on the payment screen
         assertTrue(totals.hasExtras)
     }
 

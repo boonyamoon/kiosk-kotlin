@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- USB printer class, any brand. Cheap printers share generic vendor ids, so an id here would miss some. -->
+<resources>
+    <usb-device class="7" subclass="1" />
+</resources>

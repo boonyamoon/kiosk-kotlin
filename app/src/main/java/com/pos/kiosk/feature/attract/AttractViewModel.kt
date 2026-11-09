@@ -10,6 +10,7 @@ import com.pos.kiosk.domain.model.OrderType
 import com.pos.kiosk.domain.repository.ConfigRepository
 import com.pos.kiosk.domain.repository.MenuRepository
 import com.pos.kiosk.domain.repository.OrderSessionRepository
+import com.pos.kiosk.domain.usecase.PrintReceiptUseCase
 import com.pos.kiosk.domain.usecase.RefreshKioskTokenUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
@@ -33,6 +34,7 @@ class AttractViewModel @Inject constructor(
     idle: IdleTimeoutController,
     prefetcher: ImagePrefetcher,
     private val lockTask: LockTaskController,
+    private val printReceipt: PrintReceiptUseCase,
 ) : ViewModel() {
 
     val state: StateFlow<AttractUiState> = configRepository.config
@@ -62,6 +64,9 @@ class AttractViewModel @Inject constructor(
         // screen lock is over, so a forgotten exit never leaves the kiosk open to customers.
         lockTask.endSuspension()
         refreshIfStale()
+        // Reach a built-in printer here, not after the first order: binding its service takes a moment, and on old
+        // iMin devices Android asks for the USB permission, which belongs in front of staff setting up the kiosk.
+        viewModelScope.launch { printReceipt.currentPrinter() }
     }
 
     /**

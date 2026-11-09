@@ -2,6 +2,7 @@ package com.pos.kiosk.feature.success
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.toRoute
+import com.pos.kiosk.core.common.AppError
 import com.pos.kiosk.core.common.AppResult
 import com.pos.kiosk.data.repository.InMemoryOrderSessionRepository
 import com.pos.kiosk.domain.model.Receipt
@@ -51,7 +52,7 @@ class SuccessViewModelTest {
 
     @Test
     fun `print again while a print is running does not open a second print`() = runTest(dispatcher) {
-        every { printReceipt.hasPrinter() } returns true
+        coEvery { printReceipt.hasPrinter() } returns true
         coEvery { orders.receipt("order-1") } returns AppResult.Success(receipt)
         coEvery { printReceipt(receipt) } coAnswers {
             delay(3_000) // a slow printer
@@ -73,6 +74,21 @@ class SuccessViewModelTest {
         advanceTimeBy(3_500)
         coVerify(exactly = 2) { printReceipt(receipt) }
         coVerify(exactly = 1) { orders.receipt("order-1") }
+    }
+
+    @Test
+    fun `no paper gets its own message and can be retried once refilled`() = runTest(dispatcher) {
+        coEvery { printReceipt.hasPrinter() } returns true
+        coEvery { orders.receipt("order-1") } returns AppResult.Success(receipt)
+        coEvery { printReceipt(receipt) } returns AppResult.Failure(AppError.PrinterOutOfPaper) andThen AppResult.Success(Unit)
+        val viewModel = SuccessViewModel(SavedStateHandle(), orders, InMemoryOrderSessionRepository(), printReceipt)
+        dispatcher.scheduler.runCurrent()
+        assertEquals(PrintStatus.OUT_OF_PAPER, viewModel.state.value.printStatus)
+
+        viewModel.printAgain()
+        dispatcher.scheduler.runCurrent()
+
+        assertEquals(PrintStatus.PRINTED, viewModel.state.value.printStatus)
     }
 }
 

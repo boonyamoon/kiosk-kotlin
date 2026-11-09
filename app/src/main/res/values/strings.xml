@@ -111,9 +111,9 @@
     <string name="payment_promptpay_desc">สแกนจ่ายผ่านแอปธนาคาร</string>
     <string name="payment_food_total">ค่าอาหาร</string>
     <string name="payment_service_charge">ค่าบริการ %1$s%%</string>
+    <string name="payment_before_vat">ราคาก่อนภาษี</string>
     <string name="payment_vat">VAT %1$s%%</string>
     <string name="payment_total_due">ยอดที่ต้องชำระ</string>
-    <string name="payment_vat_included">รวม VAT %1$s%% แล้ว %2$s</string>
     <string name="payment_placing">กำลังส่งออเดอร์…</string>
 
     <string name="promptpay_title">สแกนเพื่อชำระเงิน</string>
@@ -131,6 +131,7 @@
     <string name="success_pay_at_counter">กรุณาชำระเงิน %1$s ที่เคาน์เตอร์</string>
     <string name="success_printing">กำลังพิมพ์ใบเสร็จ…</string>
     <string name="success_print_failed">พิมพ์ใบเสร็จไม่สำเร็จ กรุณาแจ้งพนักงาน</string>
+    <string name="success_print_no_paper">กระดาษใบเสร็จหมด กรุณาแจ้งพนักงาน</string>
     <string name="success_print_again">พิมพ์อีกครั้ง</string>
     <string name="success_no_printer">กรุณาจดหมายเลขคิวไว้</string>
     <string name="success_back_in">กลับหน้าแรกใน %1$d วินาที</string>
@@ -159,6 +160,20 @@
     <string name="admin_unpair_confirm">ยกเลิกการผูกเครื่องนี้ใช่ไหม? ต้องตั้งค่าใหม่ทั้งหมด</string>
     <string name="admin_terminal_info">เครื่อง %1$s · สาขา %2$s</string>
     <string name="admin_printer_info">เครื่องพิมพ์: %1$s (%2$s)</string>
+    <string name="admin_printer_builtin">เครื่องพิมพ์: ในตัวเครื่อง %1$s %2$d มม. · %3$s</string>
+    <string name="admin_printer_usb">เครื่องพิมพ์: USB %1$s %2$d มม. · %3$s</string>
+    <string name="admin_printer_not_allowed">ยังไม่ได้อนุญาต</string>
+    <string name="admin_usb_title">เครื่องพิมพ์ USB</string>
+    <string name="admin_usb_allow">อนุญาตเครื่องพิมพ์ USB</string>
+    <string name="admin_usb_allow_hint">ในกล่องที่ Android ถาม ให้ติ๊กช่องใช้กับแอปนี้เสมอแล้วกดตกลง จะได้ไม่ต้องอนุญาตใหม่</string>
+    <string name="admin_usb_exit_lock_first">Android ถามสิทธิ์ตอนล็อกหน้าจออยู่ไม่ได้ กรุณากด “ออกจากโหมดล็อกหน้าจอ” ด้านล่างก่อน</string>
+    <string name="admin_usb_paper">ขนาดกระดาษ</string>
+    <string name="admin_usb_paper_mm">%1$d มม.</string>
+    <string name="admin_printer_ready">พร้อมใช้งาน</string>
+    <string name="admin_printer_no_paper">กระดาษหมด</string>
+    <string name="admin_printer_cover_open">ฝาเปิดอยู่</string>
+    <string name="admin_printer_overheated">หัวพิมพ์ร้อนเกินไป</string>
+    <string name="admin_printer_offline">ไม่พร้อมใช้งาน</string>
     <string name="admin_printer_none">ยังไม่ได้กำหนดเครื่องพิมพ์ใบเสร็จให้เครื่องนี้</string>
     <string name="admin_test_print_ok">พิมพ์ทดสอบสำเร็จ</string>
     <string name="admin_refreshed">อัปเดตแล้ว</string>
@@ -251,4 +266,6 @@
     <string name="receipt_paid_by_cash">เงินสด</string>
     <string name="receipt_change">เงินทอน</string>
     <string name="receipt_test_title">ทดสอบเครื่องพิมพ์</string>
+    <string name="receipt_builtin_printer">เครื่องพิมพ์ในตัว %1$s %2$d มม.</string>
+    <string name="receipt_usb_printer">เครื่องพิมพ์ USB %1$s %2$d มม.</string>
 </resources>

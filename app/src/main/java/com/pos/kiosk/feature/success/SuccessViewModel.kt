@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
+import com.pos.kiosk.core.common.AppError
 import com.pos.kiosk.core.common.AppResult
 import com.pos.kiosk.domain.model.PaymentMethod
 import com.pos.kiosk.domain.model.Receipt
@@ -23,7 +24,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-enum class PrintStatus { PRINTING, PRINTED, FAILED, NO_PRINTER }
+enum class PrintStatus { PRINTING, PRINTED, FAILED, OUT_OF_PAPER, NO_PRINTER }
 
 data class SuccessUiState(
     val queueNumber: String? = null,
@@ -99,8 +100,10 @@ class SuccessViewModel @Inject constructor(
         val status = when {
             !hasPrinter -> PrintStatus.NO_PRINTER
             current == null -> PrintStatus.FAILED
-            printReceipt(current) is AppResult.Success -> PrintStatus.PRINTED
-            else -> PrintStatus.FAILED
+            else -> when (val result = printReceipt(current)) {
+                is AppResult.Success -> PrintStatus.PRINTED
+                is AppResult.Failure -> if (result.error == AppError.PrinterOutOfPaper) PrintStatus.OUT_OF_PAPER else PrintStatus.FAILED
+            }
         }
         _state.update { it.copy(printStatus = status) }
     }

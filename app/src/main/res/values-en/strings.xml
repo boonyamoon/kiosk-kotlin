@@ -106,9 +106,9 @@
     <string name="payment_promptpay_desc">Scan with your banking app</string>
     <string name="payment_food_total">Food</string>
     <string name="payment_service_charge">Service charge %1$s%%</string>
+    <string name="payment_before_vat">Before VAT</string>
     <string name="payment_vat">VAT %1$s%%</string>
     <string name="payment_total_due">Amount due</string>
-    <string name="payment_vat_included">Incl. VAT %1$s%% %2$s</string>
     <string name="payment_placing">Sending your order…</string>
 
     <string name="promptpay_title">Scan to pay</string>
@@ -126,6 +126,7 @@
     <string name="success_pay_at_counter">Please pay %1$s at the counter</string>
     <string name="success_printing">Printing your receipt…</string>
     <string name="success_print_failed">Could not print the receipt. Please tell our staff.</string>
+    <string name="success_print_no_paper">The receipt paper has run out. Please tell a staff member</string>
     <string name="success_print_again">Print again</string>
     <string name="success_no_printer">Please remember your queue number</string>
     <string name="success_back_in">Back to start in %1$d s</string>
@@ -155,6 +156,20 @@
     <string name="admin_unpair_confirm">Unpair this device? It will need to be set up again.</string>
     <string name="admin_terminal_info">Terminal %1$s · Branch %2$s</string>
     <string name="admin_printer_info">Printer: %1$s (%2$s)</string>
+    <string name="admin_printer_builtin">Printer: built-in %1$s %2$d mm · %3$s</string>
+    <string name="admin_printer_usb">Printer: USB %1$s %2$d mm · %3$s</string>
+    <string name="admin_printer_not_allowed">Not allowed yet</string>
+    <string name="admin_usb_title">USB printer</string>
+    <string name="admin_usb_allow">Allow USB printer</string>
+    <string name="admin_usb_allow_hint">In Android\'s prompt, tick the box to always use this app, then tap OK, so you won\'t be asked again</string>
+    <string name="admin_usb_exit_lock_first">Android can\'t ask while the screen is locked. Please tap “Exit lock mode” below first</string>
+    <string name="admin_usb_paper">Paper size</string>
+    <string name="admin_usb_paper_mm">%1$d mm</string>
+    <string name="admin_printer_ready">Ready</string>
+    <string name="admin_printer_no_paper">Out of paper</string>
+    <string name="admin_printer_cover_open">Cover open</string>
+    <string name="admin_printer_overheated">Print head too hot</string>
+    <string name="admin_printer_offline">Not available</string>
     <string name="admin_printer_none">No receipt printer is assigned to this kiosk</string>
     <string name="admin_test_print_ok">Test print sent</string>
     <string name="admin_refreshed">Updated</string>
@@ -247,4 +262,6 @@
     <string name="receipt_paid_by_cash">Cash</string>
     <string name="receipt_change">Change</string>
     <string name="receipt_test_title">Printer test</string>
+    <string name="receipt_builtin_printer">Built-in printer %1$s %2$d mm</string>
+    <string name="receipt_usb_printer">USB printer %1$s %2$d mm</string>
 </resources>

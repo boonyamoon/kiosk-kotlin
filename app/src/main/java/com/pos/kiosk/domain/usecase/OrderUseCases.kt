@@ -5,8 +5,8 @@ import com.pos.kiosk.core.common.AppResult
 import com.pos.kiosk.core.common.Clock
 import com.pos.kiosk.core.common.getOrNull
 import com.pos.kiosk.core.common.onSuccess
-import com.pos.kiosk.core.printer.PrinterTarget
-import com.pos.kiosk.core.printer.ReceiptPrinter
+import com.pos.kiosk.core.printer.PrinterInfo
+import com.pos.kiosk.core.printer.PrinterRouter
 import com.pos.kiosk.core.printer.ReceiptRenderer
 import com.pos.kiosk.domain.model.PaymentMethod
 import com.pos.kiosk.domain.model.PlaceOrderRequest
@@ -84,21 +84,29 @@ class ObservePaymentStatusUseCase @Inject constructor(
 class PrintReceiptUseCase @Inject constructor(
     private val configRepository: ConfigRepository,
     private val renderer: ReceiptRenderer,
-    private val printer: ReceiptPrinter,
+    private val router: PrinterRouter,
 ) {
-    fun hasPrinter(): Boolean = configRepository.config.value?.receiptPrinter != null
+    /** Also reaches a built-in printer, which is why the first screen calls it: see AttractViewModel.onShown. */
+    suspend fun currentPrinter(): PrinterInfo? = router.current(configRepository.config.value?.receiptPrinter)
+
+    suspend fun hasPrinter(): Boolean = currentPrinter() != null
+
+    fun requestUsbPermission() = router.requestUsbPermission()
+
+    suspend fun setUsbPaperWidth(widthDots: Int) = router.setUsbPaperWidth(widthDots)
 
     suspend operator fun invoke(receipt: Receipt): AppResult<Unit> {
         val config = configRepository.config.value ?: configRepository.refresh().getOrNull()
-        val printerConfig = config?.receiptPrinter ?: return AppResult.Failure(AppError.PrinterUnavailable)
-        val image = withContext(Dispatchers.Default) { renderer.render(receipt, config, printerConfig.paperWidthDots) }
-        return printer.print(PrinterTarget(printerConfig.host, printerConfig.port), image, printerConfig.copyCount)
+            ?: return AppResult.Failure(AppError.PrinterUnavailable)
+        val printer = router.current(config.receiptPrinter) ?: return AppResult.Failure(AppError.PrinterUnavailable)
+        val image = withContext(Dispatchers.Default) { renderer.render(receipt, config, printer.paperWidthDots) }
+        return router.print(printer, image, config.receiptPrinter?.copyCount ?: 1)
     }
 
     suspend fun printTestPage(): AppResult<Unit> {
         val config = configRepository.config.value ?: return AppResult.Failure(AppError.PrinterUnavailable)
-        val printerConfig = config.receiptPrinter ?: return AppResult.Failure(AppError.PrinterUnavailable)
-        val image = withContext(Dispatchers.Default) { renderer.renderTestPage(config, printerConfig.paperWidthDots) }
-        return printer.print(PrinterTarget(printerConfig.host, printerConfig.port), image, 1)
+        val printer = router.current(config.receiptPrinter) ?: return AppResult.Failure(AppError.PrinterUnavailable)
+        val image = withContext(Dispatchers.Default) { renderer.renderTestPage(config, printer) }
+        return router.print(printer, image)
     }
 }

@@ -23,6 +23,9 @@ sealed interface AppError {
     data object OrderInKitchen : AppError
     data object NoKioskTerminal : AppError
     data object PrinterUnavailable : AppError
+
+    /** A built-in printer reported it: unlike a LAN printer, it can tell the kiosk why nothing came out. */
+    data object PrinterOutOfPaper : AppError
     /** Staff PIN for the admin menu is wrong, or that staff member may not use the kiosk (deliberately one answer). */
     data object InvalidPin : AppError
     /** The owners' default PIN 0000, which never opens a kiosk. */

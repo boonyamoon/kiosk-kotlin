@@ -88,17 +88,19 @@ private fun ColumnScope.StatusBlock(state: SuccessUiState, secondsLeft: () -> In
         PrintStatus.PRINTING -> R.string.success_printing
         PrintStatus.PRINTED -> null
         PrintStatus.FAILED -> R.string.success_print_failed
+        PrintStatus.OUT_OF_PAPER -> R.string.success_print_no_paper
         PrintStatus.NO_PRINTER -> R.string.success_no_printer
     }
+    val printFailed = state.printStatus == PrintStatus.FAILED || state.printStatus == PrintStatus.OUT_OF_PAPER
     printMessage?.let {
         Text(
             stringResource(it),
             style = MaterialTheme.typography.titleMedium,
             textAlign = TextAlign.Center,
-            color = if (state.printStatus == PrintStatus.FAILED) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface,
+            color = if (printFailed) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface,
         )
     }
-    if (state.printStatus == PrintStatus.FAILED) {
+    if (printFailed) {
         KioskOutlinedButton(stringResource(R.string.success_print_again), onPrintAgain, Modifier.fillMaxWidth())
     }
     KioskButton(stringResource(R.string.success_done), onDone, Modifier.fillMaxWidth())

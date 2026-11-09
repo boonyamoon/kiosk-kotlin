@@ -27,7 +27,7 @@ android {
         applicationId = "com.pos.kiosk"
         minSdk = 26
         targetSdk = 36
-        versionCode = 1
+        versionCode = 2
         versionName = "1.0.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "API_BASE_URL", "\"$kioskApiBaseUrl\"")
@@ -143,6 +143,12 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.retrofit)
     implementation(libs.retrofit.kotlinx.serialization)
+
+    // Built-in printers of all-in-one POS devices (core/printer/builtin); idle on any other hardware. iMin publishes
+    // SDK 1.0 only as a jar and SDK 2.0 through JitPack, so both are pinned here as the vendor's released jars.
+    implementation(libs.sunmi.printerx)
+    implementation(files("libs/iMinPrinter_SDK2_V2.0.0.19_20260422.jar"))
+    implementation(files("libs/iminPrinterSDK-14_V1.3.1_2408141540.jar"))
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging)
     implementation(libs.coil.compose)
